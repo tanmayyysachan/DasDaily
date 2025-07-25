@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "308684775828",
+    "project_id": "dasdaily-99697",
+    "storage_bucket": "dasdaily-99697.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308684775828:android:f69b92ce17cca46b3baf81",
+        "android_client_info": {
+          "package_name": "com.example.dasdaily"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZDchgSDnKSAaZMTrHjHWK2p1j-rUsAyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
