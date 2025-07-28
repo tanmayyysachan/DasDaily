@@ -1,4 +1,4 @@
-# 🍽️ DasDaily - Smart Tiffin Management System
+# 🍽️ Role-Based Meal Ordering & Management App
 
 A comprehensive Flutter-based tiffin management ecosystem that automates meal ordering, billing, and administration for PG/hostel communities.
 
