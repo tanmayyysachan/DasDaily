@@ -1,7 +1,7 @@
 // menu_manager.dart
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class MenuManager extends StatefulWidget {
   const MenuManager({super.key});
@@ -89,8 +89,8 @@ class _MenuManagerState extends State<MenuManager> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            _isMenuActive 
-                                ? 'Menu activated for users' 
+                            _isMenuActive
+                                ? 'Menu activated for users'
                                 : 'Menu deactivated',
                           ),
                           backgroundColor: const Color(0xFF82B29A),
@@ -180,10 +180,7 @@ class _MenuManagerState extends State<MenuManager> {
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [
-                    Color(0xFF6BAF92),
-                    Color(0xFF82B29A),
-                  ],
+                  colors: [Color(0xFF6BAF92), Color(0xFF82B29A)],
                 ),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
@@ -207,11 +204,7 @@ class _MenuManagerState extends State<MenuManager> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.update,
-                          color: Colors.white,
-                          size: 20,
-                        ),
+                        Icon(Icons.update, color: Colors.white, size: 20),
                         SizedBox(width: 10),
                         Text(
                           "Update Menu for Users",
@@ -240,7 +233,10 @@ class _MenuManagerState extends State<MenuManager> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFF82B29A).withOpacity(0.1) : const Color(0xFFF8FAFC),
+        color:
+            isSelected
+                ? const Color(0xFF82B29A).withOpacity(0.1)
+                : const Color(0xFFF8FAFC),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isSelected ? const Color(0xFF82B29A) : Colors.grey.shade200,
@@ -258,7 +254,8 @@ class _MenuManagerState extends State<MenuManager> {
             fontSize: 16,
             fontWeight: FontWeight.w600,
             fontFamily: 'Inter',
-            color: isSelected ? const Color(0xFF82B29A) : const Color(0xFF1F2937),
+            color:
+                isSelected ? const Color(0xFF82B29A) : const Color(0xFF1F2937),
           ),
         ),
         trailing: Row(
@@ -290,37 +287,38 @@ class _MenuManagerState extends State<MenuManager> {
   void _showAddItemDialog() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Add Menu Item'),
-        content: TextField(
-          controller: _customItemController,
-          decoration: const InputDecoration(
-            hintText: 'Enter item name',
-            border: OutlineInputBorder(),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (_customItemController.text.isNotEmpty) {
-                setState(() {
-                  _menuItems.add(_customItemController.text);
-                  _customItemController.clear();
-                });
-                Navigator.pop(context);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF82B29A),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Add Menu Item'),
+            content: TextField(
+              controller: _customItemController,
+              decoration: const InputDecoration(
+                hintText: 'Enter item name',
+                border: OutlineInputBorder(),
+              ),
             ),
-            child: const Text('Add'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (_customItemController.text.isNotEmpty) {
+                    setState(() {
+                      _menuItems.add(_customItemController.text);
+                      _customItemController.clear();
+                    });
+                    Navigator.pop(context);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF82B29A),
+                ),
+                child: const Text('Add'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -332,13 +330,34 @@ class _MenuManagerState extends State<MenuManager> {
     });
   }
 
-  void _updateMenu() {
-    // Here you would update the menu in your backend/database
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Menu updated successfully!'),
-        backgroundColor: Color(0xFF82B29A),
-      ),
-    );
+  void _updateMenu() async {
+    try {
+      final today = DateTime.now();
+      final todayString =
+          "${today.year}-${_twoDigits(today.month)}-${_twoDigits(today.day)}";
+
+      await FirebaseFirestore.instance.collection('menu').doc(todayString).set({
+        'items': _selectedItems,
+        'orderingOpen': _isMenuActive,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Menu updated successfully!'),
+          backgroundColor: Color(0xFF82B29A),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error updating menu: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
+
+  // Helper function
+  String _twoDigits(int n) => n.toString().padLeft(2, '0');
 }

@@ -1,205 +1,8 @@
-// import 'package:dasdaily/signup_page.dart';
-// import 'package:firebase_auth/firebase_auth.dart'; // ✅ Firebase Auth import
-// import 'package:flutter/material.dart';
-// import 'landing_page.dart';
-
-// class LoginPage extends StatefulWidget {
-//   const LoginPage({super.key});
-
-//   @override
-//   State<LoginPage> createState() => _LoginPageState();
-// }
-
-// class _LoginPageState extends State<LoginPage> {
-//   final _formKey = GlobalKey<FormState>();
-//   final _emailController = TextEditingController();
-//   final _passwordController = TextEditingController();
-
-//   bool _isLoading = false; // ✅ Used to show a loading spinner
-
-//   Future<void> _login() async {
-//     if (_formKey.currentState!.validate()) {
-//       final email = _emailController.text.trim();
-//       final password = _passwordController.text.trim();
-
-//       setState(() {
-//         _isLoading = true; // ✅ Start loading
-//       });
-
-//       try {
-//         // ✅ Firebase sign in
-//         await FirebaseAuth.instance.signInWithEmailAndPassword(
-//           email: email,
-//           password: password,
-//         );
-
-//         if (!mounted) return; // ✅ Avoid updating UI if widget is disposed
-
-//         // ✅ Navigate to landing page after successful login
-//         Navigator.pushReplacement(
-//           context,
-//           MaterialPageRoute(builder: (context) => const LandingPage()),
-//         );
-//       } on FirebaseAuthException catch (e) {
-//         // ✅ Handle common auth errors
-//         String message = "Login failed: ${e.code}";
-//         if (e.code == 'user-not-found') {
-//           message = "No user found for that email.";
-//         } else if (e.code == 'wrong-password') {
-//           message = "Incorrect password.";
-//         } else if (e.code == 'invalid-email') {
-//           message = "Invalid email address.";
-//         }
-
-//         // ✅ Show error to user
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(content: Text(message)),
-//         );
-//       } finally {
-//         // ✅ Stop loading after login attempt
-//         if (mounted) {
-//           setState(() {
-//             _isLoading = false;
-//           });
-//         }
-//       }
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final themeColor = const Color(0xFF82B29A); // sage green
-
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFF5F5F5),
-//       body: SafeArea(
-//         child: Center(
-//           child: SingleChildScrollView(
-//             padding: const EdgeInsets.symmetric(horizontal: 30),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 const Text(
-//                   "Welcome Back 👋",
-//                   style: TextStyle(
-//                     fontFamily: 'Poppins',
-//                     fontSize: 26,
-//                     fontWeight: FontWeight.bold,
-//                     color: Color(0xFF3B3B3B),
-//                   ),
-//                 ),
-//                 const SizedBox(height: 10),
-//                 const Text(
-//                   "Log in to continue ordering",
-//                   style: TextStyle(fontSize: 16, color: Colors.grey),
-//                 ),
-//                 const SizedBox(height: 30),
-//                 Form(
-//                   key: _formKey,
-//                   child: Column(
-//                     children: [
-//                       _buildTextField(
-//                         controller: _emailController,
-//                         label: "Email",
-//                         icon: Icons.email,
-//                         validator: (value) =>
-//                             value!.isEmpty ? "Enter your email" : null,
-//                       ),
-//                       const SizedBox(height: 20),
-//                       _buildTextField(
-//                         controller: _passwordController,
-//                         label: "Password",
-//                         icon: Icons.lock,
-//                         obscureText: true,
-//                         validator: (value) => value!.length < 6
-//                             ? "Password must be at least 6 characters"
-//                             : null,
-//                       ),
-//                       const SizedBox(height: 30),
-//                       SizedBox(
-//                         width: double.infinity,
-//                         height: 50,
-//                         child: ElevatedButton(
-//                           onPressed: _isLoading ? null : _login,
-//                           style: ElevatedButton.styleFrom(
-//                             backgroundColor: themeColor,
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(12),
-//                             ),
-//                           ),
-//                           child: _isLoading
-//                               ? const CircularProgressIndicator(
-//                                   valueColor:
-//                                       AlwaysStoppedAnimation<Color>(Colors.white),
-//                                 )
-//                               : const Text(
-//                                   "Log In",
-//                                   style: TextStyle(fontSize: 18),
-//                                 ),
-//                         ),
-//                       ),
-//                       const SizedBox(height: 20),
-//                       TextButton(
-//                         onPressed: () {
-//                           Navigator.pushReplacement(
-//                             context,
-//                             MaterialPageRoute(
-//                               builder: (context) => const SignupPage(),
-//                             ),
-//                           );
-//                         },
-//                         child: const Text(
-//                           "Don't have an account? Sign up",
-//                           style: TextStyle(color: Colors.grey),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildTextField({
-//     required TextEditingController controller,
-//     required String label,
-//     required IconData icon,
-//     String? Function(String?)? validator,
-//     bool obscureText = false,
-//   }) {
-//     return TextFormField(
-//       controller: controller,
-//       validator: validator,
-//       obscureText: obscureText,
-//       decoration: InputDecoration(
-//         prefixIcon: Icon(icon),
-//         labelText: label,
-//         filled: true,
-//         fillColor: Colors.white,
-//         contentPadding: const EdgeInsets.symmetric(
-//           horizontal: 20,
-//           vertical: 18,
-//         ),
-//         border: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(12),
-//           borderSide: BorderSide(color: Colors.grey.shade300),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-import 'package:dasdaily/signup_page.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // ✅ Firebase Auth import
+import 'package:dasdaily_admin/screens/admin_dashboard.dart';
 import 'package:flutter/material.dart';
-import 'landing_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -210,10 +13,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  bool _isLoading = false; // ✅ Used to show a loading spinner
+  bool _isLoading = false;
   bool _obscurePassword = true;
 
   late AnimationController _fadeController;
@@ -234,57 +37,63 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     _fadeController.dispose();
     super.dispose();
   }
 
-  Future<void> _login() async {
+  void login() async {
     if (_formKey.currentState!.validate()) {
-      final email = _emailController.text.trim();
-      final password = _passwordController.text.trim();
-
       setState(() {
-        _isLoading = true; // ✅ Start loading
+        _isLoading = true;
       });
 
       try {
-        // ✅ Firebase sign in
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
+        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
         );
 
-        if (!mounted) return; // ✅ Avoid updating UI if widget is disposed
+        final uid = credential.user!.uid;
+        final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+        final role = doc.data()?['role'];
 
-        // ✅ Navigate to landing page after successful login
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LandingPage()),
-        );
-      } on FirebaseAuthException catch (e) {
-        // ✅ Handle common auth errors
-        String message = "Login failed: ${e.code}";
-        if (e.code == 'user-not-found') {
-          message = "No user found for that email.";
-        } else if (e.code == 'wrong-password') {
-          message = "Incorrect password.";
-        } else if (e.code == 'invalid-email') {
-          message = "Invalid email address.";
+        if (!mounted) return;
+
+        if (role == 'admin') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const AdminDashboard()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text(
+                'Access denied: Not an admin',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              backgroundColor: Colors.red.shade600,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
         }
-
-        // ✅ Show error to user
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(message, style: const TextStyle(fontWeight: FontWeight.w600)),
-            backgroundColor: Colors.red.shade600,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Login failed: $e',
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+              backgroundColor: Colors.red.shade600,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       } finally {
-        // ✅ Stop loading after login attempt
         if (mounted) {
           setState(() {
             _isLoading = false;
@@ -338,7 +147,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Logo/Icon with elegant styling
+                      // Admin Logo/Icon with elegant styling
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -346,7 +155,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Icon(
-                          Icons.login,
+                          Icons.admin_panel_settings,
                           size: 40,
                           color: themeColor,
                         ),
@@ -355,7 +164,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       const SizedBox(height: 24),
 
                       const Text(
-                        "Welcome Back 👋",
+                        "Admin Portal 🔐",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 28,
@@ -368,7 +177,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       const SizedBox(height: 10),
 
                       Text(
-                        "Log in to continue ordering",
+                        "Access admin dashboard",
                         style: TextStyle(
                           fontSize: 16, 
                           color: Colors.grey.shade600,
@@ -383,7 +192,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         child: Column(
                           children: [
                             _buildTextField(
-                              controller: _emailController,
+                              controller: emailController,
                               label: "Email",
                               icon: Icons.email_outlined,
                               validator: (value) =>
@@ -393,7 +202,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             const SizedBox(height: 20),
 
                             _buildTextField(
-                              controller: _passwordController,
+                              controller: passwordController,
                               label: "Password",
                               icon: Icons.lock_outline,
                               obscureText: _obscurePassword,
@@ -438,7 +247,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               child: Material(
                                 color: Colors.transparent,
                                 child: InkWell(
-                                  onTap: _isLoading ? null : _login,
+                                  onTap: _isLoading ? null : login,
                                   borderRadius: BorderRadius.circular(16),
                                   child: Container(
                                     alignment: Alignment.center,
@@ -454,7 +263,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                             ),
                                           )
                                         : const Text(
-                                          "Log In",
+                                          "Admin Login",
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600,

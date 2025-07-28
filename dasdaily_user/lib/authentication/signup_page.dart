@@ -1,258 +1,8 @@
-// import 'package:dasdaily/login_page.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
+//signup_page.dart
 
-// // For Every StatefulWidget, Write this Default Code
-// class SignupPage extends StatefulWidget {
-//   const SignupPage({super.key});
-
-//   @override
-//   State<SignupPage> createState() => _SignupPageState();
-// }
-
-// class _SignupPageState extends State<SignupPage> {
-//   final _formKey = GlobalKey<FormState>(); //validates whether data is correct or not 
-//   final _nameController = TextEditingController(); //TextEditingController() - Lets you get the input text
-//   final _emailController = TextEditingController();
-//   final _passwordController = TextEditingController();
-
-//   bool _isLoading = false;
-//   bool _obscurePassword = true;
-
-//   @override
-//   void dispose() {
-//     _nameController.dispose(); //Stops listening to name input
-//     _emailController.dispose();
-//     _passwordController.dispose(); 
-//     super.dispose(); //You clean the dishes (your custom code) Then you call your helper (your superclass) to mop the floor (super.dispose())
-//   }
-
-//   Future<void> _signup() async {
-//     if (_formKey.currentState!.validate()) {
-//       setState(() {
-//         _isLoading = true;
-//       });
-
-//       try {
-//         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-//           email: _emailController.text.trim(),
-//           password: _passwordController.text.trim(),
-//         );
-
-//         if (!mounted) return; //Widget is gone (don’t touch the UI!)
-
-//         ScaffoldMessenger.of( //ScaffoldMessenger.of(context) - This finds the part of the screen (Scaffold) where you can show snackbars
-//           context,
-//         ).showSnackBar(const SnackBar(content: Text("Account created!")));
-
-//         Navigator.pushReplacement( //pushReplacement - Take the user to the login screen, and don’t let them go back to signup
-//           context,
-//           MaterialPageRoute(builder: (context) => const LoginPage()), //If no data is changing when building this widget, I can make it constant.
-//         );
-
-//       } on FirebaseAuthException catch (e) {
-//         String message = "Signup failed: ${e.code}";
-//         print(e); // prints full FirebaseAuthException
-
-//         if (e.code == 'email-already-in-use') {
-//           message = "This email is already in use";
-//         } else if (e.code == 'invalid-email') {
-//           message = "Invalid email address";
-//         } else if (e.code == 'weak-password') {
-//           message = "Password is too weak";
-//         }
-
-//         ScaffoldMessenger.of(
-//           context,
-//         ).showSnackBar(SnackBar(content: Text(message)));
-
-//       } finally {
-//         if (mounted) { //Widget is still on screen (safe to update UI)
-//           setState(() {
-//             _isLoading = false;
-//           });
-//         }
-//       }
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final themeColor = const Color(0xFF82B29A); // soft sage green
-
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFF5F5F5), // soft off-white
-//       body: SafeArea( //SafeArea ensures that your content: doesn’t overlap with things like the notch, status bar, or bottom navigation bar.
-//         child: Center(
-//           child: SingleChildScrollView( //This allows the whole screen to scroll up and down if needed.
-//             padding: const EdgeInsets.symmetric(horizontal: 30),
-//             child: Column( //Column stacks widgets vertically (one on top of another).
-//               mainAxisAlignment: MainAxisAlignment.center, //This tries to center everything vertically inside the available space (within the scroll view).
-//               children: [
-//                 const Text(
-//                   "Welcome to DasDaily 🍱",
-//                   style: TextStyle(
-//                     fontFamily: 'Poppins',
-//                     fontSize: 26,
-//                     fontWeight: FontWeight.bold,
-//                     color: Color(0xFF3B3B3B),
-//                   ),
-//                 ),
-
-//                 const SizedBox(height: 10),
-
-//                 const Text(
-//                   "Sign up to get your daily tiffin!",
-//                   style: TextStyle(fontSize: 16, color: Colors.grey),
-//                 ),
-
-//                 const SizedBox(height: 30),
-                
-//                 Form(
-//                   key: _formKey,
-//                   child: Column(
-//                     children: [
-//                       _buildTextField(
-//                         controller: _nameController,
-//                         label: "Name",
-//                         icon: Icons.person,
-//                         validator:
-//                             (value) => //We use value! here to force it to not be null (because value is String?, a nullable type).
-//                                 value!.isEmpty ? "Enter your name" : null, //checks if the input is empty. If yes → show error: "Enter your name".
-//                         autofillHint: AutofillHints.name, //gives the system a hint to autofill this field (like Google autofill).
-//                       ),
-
-//                       const SizedBox(height: 20),
-
-//                       _buildTextField(
-//                         controller: _emailController,
-//                         label: "Email",
-//                         icon: Icons.email,
-//                         validator:
-//                             (value) =>
-//                                 value!.isEmpty ? "Enter your email" : null,
-//                         autofillHint: AutofillHints.email,
-//                       ),
-
-//                       const SizedBox(height: 20),
-
-//                       _buildTextField(
-//                         controller: _passwordController,
-//                         label: "Password",
-//                         icon: Icons.lock,
-//                         obscureText: _obscurePassword,
-//                         validator: //The validator in a TextFormField is a function that checks the input value and returns an error message 
-//                             (value) =>
-//                                 value!.length < 6
-//                                     ? "Password must be at least 6 characters"
-//                                     : null,
-//                         autofillHint: AutofillHints.newPassword,
-
-//                         suffixIcon: IconButton( //suffixIcon is a widget (usually an icon) that appears at the end (right side) of a TextFormField.
-//                           icon: Icon(
-//                             _obscurePassword
-//                                 ? Icons.visibility_off
-//                                 : Icons.visibility,
-//                           ),
-//                           onPressed: () { //You use it whenever you want something to happen on tap
-//                             setState(() {
-//                               _obscurePassword = !_obscurePassword;
-//                             });
-//                           },
-//                         ),
-//                       ),
-
-//                       const SizedBox(height: 30),
-
-//                       SizedBox(
-//                         width: double.infinity, //the button will stretch to take the full width available
-//                         height: 50,
-//                         child: ElevatedButton(
-//                           onPressed: _isLoading ? null : _signup, //If _isLoading is true, button is disabled (because null = not clickable).
-//                           //If not loading, tapping the button calls the _signup() function.
-//                           style: ElevatedButton.styleFrom(
-//                             backgroundColor: themeColor,
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(12),
-//                             ),
-//                           ),
-//                           child:
-//                               _isLoading
-//                                   ? const CircularProgressIndicator(
-//                                     valueColor: AlwaysStoppedAnimation<Color>(
-//                                       Colors.white,
-//                                     ),
-//                                   )
-//                                   : const Text(
-//                                     "Sign Up",
-//                                     style: TextStyle(fontSize: 18),
-//                                   ),
-//                         ),
-//                       ),
-
-//                       const SizedBox(height: 20),
-
-//                       TextButton(
-//                         onPressed: () {
-//                           Navigator.pushReplacement(
-//                             context,
-//                             MaterialPageRoute(
-//                               builder: (context) => const LoginPage(),
-//                             ),
-//                           );
-//                         },
-//                         child: const Text(
-//                           "Already have an account? Log in",
-//                           style: TextStyle(color: Colors.grey),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildTextField({
-//     required TextEditingController controller,
-//     required String label,
-//     required IconData icon,
-//     String? Function(String?)? validator,
-//     bool obscureText = false,
-//     String? autofillHint,
-//     Widget? suffixIcon,
-//   }) {
-//     return TextFormField(
-//       controller: controller,
-//       validator: validator,
-//       obscureText: obscureText,
-//       autofillHints: autofillHint != null ? [autofillHint] : null,
-//       decoration: InputDecoration(
-//         prefixIcon: Icon(icon),
-//         suffixIcon: suffixIcon,
-//         labelText: label,
-//         filled: true,
-//         fillColor: Colors.white,
-//         contentPadding: const EdgeInsets.symmetric(
-//           horizontal: 20,
-//           vertical: 18,
-//         ),
-//         border: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(12),
-//           borderSide: BorderSide(color: Colors.grey.shade300),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-import 'package:dasdaily/login_page.dart';
+import 'package:dasdaily/authentication/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // ✅ Added Firestore import
 import 'package:flutter/material.dart';
 
 // For Every StatefulWidget, Write this Default Code
@@ -296,6 +46,7 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
     super.dispose(); //You clean the dishes (your custom code) Then you call your helper (your superclass) to mop the floor (super.dispose())
   }
 
+  // ✅ UPDATED _signup() function with Firestore integration
   Future<void> _signup() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
@@ -303,10 +54,24 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
       });
 
       try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        // Create Firebase Auth account
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+
+        // Get the user ID from the created account
+        String userId = userCredential.user!.uid;
+
+        // ✅ Save user data to Firestore
+        await FirebaseFirestore.instance.collection('users').doc(userId).set({
+          'name': _nameController.text.trim(),
+          'email': _emailController.text.trim(),
+          'totalTiffins': 0,
+          'totalCurries': 0,
+          'totalBill': 0,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
 
         if (!mounted) return; //Widget is gone (don't touch the UI!)
 
@@ -314,7 +79,7 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
           context,
         ).showSnackBar(
           SnackBar(
-            content: const Text("Account created!", style: TextStyle(color: Colors.white)),
+            content: const Text("Account created successfully!", style: TextStyle(color: Colors.white)),
             backgroundColor: const Color(0xFF82B29A),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             behavior: SnackBarBehavior.floating,
@@ -349,6 +114,16 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
           )
         );
 
+      } catch (e) {
+        // ✅ Handle Firestore errors
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Error saving user data: $e", style: const TextStyle(color: Colors.white)),
+            backgroundColor: Colors.red.shade400,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            behavior: SnackBarBehavior.floating,
+          )
+        );
       } finally {
         if (mounted) { //Widget is still on screen (safe to update UI)
           setState(() {
