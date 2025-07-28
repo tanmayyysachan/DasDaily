@@ -212,44 +212,6 @@ graph LR
     F --> G[Billing Updated]
 ```
 
-## 🔧 API Documentation
-
-### Firebase Cloud Functions
-
-#### Menu Management
-```javascript
-// Create/Update Daily Menu
-exports.updateMenu = functions.https.onCall(async (data, context) => {
-  // Validates admin role
-  // Updates menu collection
-  // Triggers user notifications
-});
-
-// Close Ordering Window
-exports.closeOrdering = functions.pubsub.schedule('0 18 * * *')
-  .onRun(async (context) => {
-    // Automatically closes ordering at 6 PM
-  });
-```
-
-#### Billing System
-```javascript
-// Calculate Monthly Bill
-exports.calculateMonthlyBill = functions.firestore
-  .document('orders/{userId}/{date}')
-  .onCreate(async (snap, context) => {
-    // Updates user's running total
-    // Handles price calculations
-  });
-
-// Monthly Reset
-exports.monthlyReset = functions.pubsub.schedule('0 0 1 * *')
-  .onRun(async (context) => {
-    // Archives previous month data
-    // Resets current month totals
-  });
-```
-
 ### REST API Endpoints
 
 | Method | Endpoint | Description |
@@ -259,28 +221,6 @@ exports.monthlyReset = functions.pubsub.schedule('0 0 1 * *')
 | GET | `/api/users/{id}/billing` | Get user billing info |
 | POST | `/api/admin/menu/update` | Update daily menu |
 | GET | `/api/admin/reports/monthly` | Generate monthly report |
-
-## 🧪 Testing
-
-### Unit Tests
-```bash
-# Run unit tests for both apps
-cd dasdaily-admin && flutter test
-cd dasdaily-user && flutter test
-```
-
-### Integration Tests
-```bash
-# Run integration tests
-flutter drive --target=test_driver/app.dart
-```
-
-### Firebase Rules Testing
-```bash
-# Test Firestore security rules
-firebase emulators:start
-npm test
-```
 
 ## 🚀 Deployment
 
