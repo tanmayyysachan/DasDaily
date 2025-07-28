@@ -102,82 +102,29 @@ DasDaily Ecosystem
 ### Firestore Collections
 
 ```javascript
-// Users Collection
-users: {
-  userId: {
-    name: "John Doe",
-    email: "john@example.com",
-    role: "user" | "admin",
-    phoneNumber: "+91XXXXXXXXXX",
-    totalTiffins: 15,
-    totalCurries: 8,
-    totalBill: 1290,
-    createdAt: timestamp,
-    lastOrderDate: "2025-07-28"
-  }
-}
+users (collection)
+  └── userId (doc)
+        ├── name
+        ├── totalTiffins
+        ├── totalCurries
+        ├── totalBill
+        ├── orders (subcollection)
+              └── 2025-07-26 (doc)
+                   ├── tiffin: 1
+                   ├── curry: 0
+                   ├── total: 70
 
-// Daily Menu Collection
-menu: {
-  "2025-07-28": {
-    items: [
-      {
-        name: "Paneer Butter Masala",
-        type: "tiffin", // or "curry"
-        price: 70,
-        description: "Rich paneer curry with butter naan"
-      }
-    ],
-    orderingOpen: true,
-    postedBy: "adminUserId",
-    postedAt: timestamp,
-    cutoffTime: "18:00"
-  }
-}
+menu (collection)
+  └── 2025-07-26 (doc)
+        ├── items: ["Paneer", "Dal", "Roti"]
+        ├── timestamp
+        ├── orderingOpen: true
 
-// Orders Collection
-orders: {
-  userId: {
-    "2025-07-28": {
-      items: [
-        {
-          name: "Paneer Butter Masala",
-          type: "tiffin",
-          quantity: 1,
-          price: 70
-        }
-      ],
-      totalAmount: 70,
-      orderTime: timestamp,
-      status: "confirmed"
-    }
-  }
-}
+history (collection)
+  └── 2025-07 (doc)
+        ├── userId1: {tiffins: 10, curries: 5, total: 850}
+        ├── userId2: {...}
 
-// Monthly History Collection
-monthlyHistory: {
-  "2025-07": {
-    userId: {
-      totalTiffins: 20,
-      totalCurries: 5,
-      totalAmount: 1550,
-      orders: [...],
-      billingStatus: "pending" | "paid",
-      paymentDate: timestamp
-    }
-  }
-}
-
-// App Configuration
-config: {
-  settings: {
-    tiffinPrice: 70,
-    curryPrice: 30,
-    orderCutoffTime: "18:00",
-    monthlyResetDay: 1,
-    notificationsEnabled: true
-  }
-}
 ```
 
 ## 📦 Installation
