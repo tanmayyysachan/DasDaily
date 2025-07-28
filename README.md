@@ -140,7 +140,7 @@ history (collection)
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/dasdaily.git
+   git clone https://github.com/tanmayyysachan/dasdaily.git
    cd dasdaily
    ```
 
