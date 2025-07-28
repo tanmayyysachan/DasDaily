@@ -2,18 +2,6 @@
 
 A comprehensive Flutter-based tiffin management ecosystem that automates meal ordering, billing, and administration for PG/hostel communities.
 
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Architecture](#architecture)
-- [Database Structure](#database-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## 🎯 Overview
 
 DasDaily eliminates the manual hassle of managing tiffin orders and billing in shared living spaces. What started as a WhatsApp group management headache is now a streamlined, automated system that handles everything from daily menu updates to monthly billing with QR code payments.
