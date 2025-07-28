@@ -337,28 +337,12 @@ npm test
 
 ## 🚀 Deployment
 
-### Android Deployment
 ```bash
 # Build APK
 flutter build apk --release
 
 # Build App Bundle
 flutter build appbundle --release
-```
-
-### iOS Deployment
-```bash
-# Build iOS app
-flutter build ios --release
-```
-
-### Firebase Deployment
-```bash
-# Deploy cloud functions
-firebase deploy --only functions
-
-# Deploy Firestore rules
-firebase deploy --only firestore:rules
 ```
 
 ## 🔒 Security Features
@@ -376,16 +360,8 @@ firebase deploy --only firestore:rules
 - [ ] **Rating System**: User feedback on meals
 - [ ] **Dietary Preferences**: Veg/Non-veg, allergies
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 #### Developed By:
-[Tanmay](https://github.com/tanmayyysachan)
+[Tanmay Sachan](https://github.com/tanmayyysachan)
 
 ## 📞 Support
 
