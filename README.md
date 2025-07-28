@@ -219,7 +219,7 @@ config: {
 
 3. **Admin App Setup**
    ```bash
-   cd dasdaily-admin
+   cd dasdaily_admin
    flutter pub get
    
    # Add Firebase configuration files
@@ -231,7 +231,7 @@ config: {
 
 4. **User App Setup**
    ```bash
-   cd dasdaily-user
+   cd dasdaily_user
    flutter pub get
    
    # Add Firebase configuration files
