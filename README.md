@@ -179,7 +179,7 @@ history (collection)
 
 ## 📖 Usage
 
-### For Administrators
+### For Admins
 
 1. **Login**: Use admin credentials to access the admin panel
 2. **Update Menu**: 
