@@ -61,28 +61,32 @@ DasDaily Ecosystem
 │
 ├── 📱 dasdaily-admin/           # Admin Application
 │   ├── lib/
+│   │   ├── authentication/
+│   │   │   ├── login_page.dart
+│   │   │   ├── signup_page.dart
+│   │   ├── widgets/
+│   │   │   ├── custom_text_field.dart
+│   │   │   ├── user_tile.dart
 │   │   ├── screens/
-│   │   │   ├── login_screen.dart
-│   │   │   ├── menu_management.dart
-│   │   │   ├── user_overview.dart
-│   │   │   └── monthly_reports.dart
-│   │   ├── services/
-│   │   │   ├── firebase_service.dart
-│   │   │   └── notification_service.dart
+│   │   │   ├── admin_dashboard.dart
+│   │   │   ├── menu_manager.dart
+│   │   │   ├── monthly_reports.dart
+│   │   │   ├── orders_view.dart
+│   │   │   └── user_management.dart
 │   │   └── main.dart
 │   └── pubspec.yaml
 │
 ├── 📱 dasdaily-user/            # User Application
 │   ├── lib/
-│   │   ├── screens/
-│   │   │   ├── login_screen.dart
-│   │   │   ├── menu_screen.dart
-│   │   │   ├── order_screen.dart
-│   │   │   ├── billing_screen.dart
-│   │   │   └── payment_screen.dart
+│   │   ├── authentication/
+│   │   │   ├── login_page.dart
+│   │   │   ├── signup_page.dart
 │   │   ├── services/
 │   │   │   ├── firebase_service.dart
-│   │   │   └── payment_service.dart
+│   │   ├── screens/
+│   │   │   ├── landing_page.dart
+│   │   │   ├── order_confirmation_page.dart
+│   │   │   ├── profile_page.dart
 │   │   └── main.dart
 │   └── pubspec.yaml
 │
