@@ -252,7 +252,7 @@ flutter build appbundle --release
 
 ## 📞 Support
 
-For support, email tanmaysachan0005@gmail.com or create an issue on GitHub.
+For support, email tanmaysachan0005@gmail.com :)
 
 ---
 
